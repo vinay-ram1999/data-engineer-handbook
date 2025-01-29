@@ -1,2 +1,5 @@
+.dbeaver/
+*.project
+
 .idea/
 .DS_Store
