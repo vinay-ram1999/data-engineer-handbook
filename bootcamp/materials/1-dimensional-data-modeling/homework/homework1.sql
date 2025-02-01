@@ -28,10 +28,10 @@ SELECT MIN(a.year), MAX(a.year) FROM actor_films a;
 INSERT INTO actors
 WITH last_year AS (
 	SELECT * FROM actors
-	WHERE current_year = 1999
+	WHERE current_year = 1972
 ), current_year AS (
 	SELECT * FROM actor_films f
-	WHERE f.year = 2000
+	WHERE f.year = 1973
 ), combined AS (
 	SELECT 
 		COALESCE(c.actorid, l.actorid) AS actorid,
@@ -132,8 +132,11 @@ SELECT actorid, actor, quality_class, is_active, start_date, end_date, current_y
 FROM compressed
 ORDER BY 1, 5;
 
--- SELECT * FROM actors_history_scd
--- WHERE actorid = 'nm0000032';
+SELECT * FROM actors
+WHERE actorid = 'nm0000003';
+
+SELECT * FROM actors_history_scd
+WHERE actorid = 'nm0000003';
 
 CREATE TYPE scd_type AS (
 	quality_class quality_class,
@@ -215,7 +218,6 @@ FROM (
 	UNION ALL
 	SELECT * FROM new_actors
 ) new_scd;
-
 
 
 

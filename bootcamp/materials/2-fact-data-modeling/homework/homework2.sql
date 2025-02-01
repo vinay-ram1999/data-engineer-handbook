@@ -5,10 +5,9 @@ WITH with_dups AS (
 		ROW_NUMBER() OVER(PARTITION BY game_id, team_id, player_id) AS row_num
 	FROM game_details
 )
-SELECT COUNT(*)
+SELECT *
 FROM with_dups
 WHERE row_num = 1;
-
 
 -- DDL for user_devices_cumulated table
 CREATE TABLE IF NOT EXISTS user_devices_cumulated (

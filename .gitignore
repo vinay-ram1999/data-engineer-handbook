@@ -1,5 +1,7 @@
 .dbeaver/
 *.project
+.venv/
+*.pyc
 
 .idea/
 .DS_Store
