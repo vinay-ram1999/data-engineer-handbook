@@ -1,12 +1,12 @@
 
 CREATE TYPE scd_type AS (
-                    scoring_class scoring_class,
-                    is_active boolean,
-                    start_season INTEGER,
-                    end_season INTEGER
-                        )
+    scoring_class scoring_class,
+    is_active boolean,
+    start_season INTEGER,
+	end_season INTEGER
+);
 
-
+INSERT INTO players_scd
 WITH last_season_scd AS (
     SELECT * FROM players_scd
     WHERE current_season = 2021
@@ -65,7 +65,6 @@ WITH last_season_scd AS (
           OR ts.is_active <> ls.is_active)
      ),
      unnested_changed_records AS (
-
          SELECT player_name,
                 (records::scd_type).scoring_class,
                 (records::scd_type).is_active,
@@ -74,7 +73,6 @@ WITH last_season_scd AS (
                 FROM changed_records
          ),
      new_records AS (
-
          SELECT
             ts.player_name,
                 ts.scoring_class,
@@ -85,10 +83,7 @@ WITH last_season_scd AS (
          LEFT JOIN last_season_scd ls
              ON ts.player_name = ls.player_name
          WHERE ls.player_name IS NULL
-
      )
-
-
 SELECT *, 2022 AS current_season FROM (
                   SELECT *
                   FROM historical_scd
@@ -107,4 +102,4 @@ SELECT *, 2022 AS current_season FROM (
 
                   SELECT *
                   FROM new_records
-              ) a
+              ) a;
